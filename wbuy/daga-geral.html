@@ -99,17 +99,17 @@ header .links .drop {
 header .links .drop a {
     font-family: var(--dg-font);
 }
-/* Letras escuras no menu suspenso (o tema pinta de branco); negrito só no hover */
+/* Letras do menu suspenso na cor do topo (cobre); negrito só no hover */
 header .links .drop,
 header .links .drop li,
 header .links .drop a {
-    color: var(--dg-text) !important;
+    color: var(--dg-primary) !important;
 }
 header .links .drop a {
     font-weight: 400 !important;
 }
 header .links .drop a:hover {
-    color: var(--dg-text) !important;
+    color: var(--dg-primary) !important;
     font-weight: 700 !important;
 }
 /* Busca */
@@ -220,8 +220,12 @@ main.categorias .hero {
     background:
         radial-gradient(circle at 80% 30%, rgba(158, 129, 74, 0.2) 0%, rgba(158, 129, 74, 0) 50%),
         linear-gradient(180deg, #fbfbfa 0%, var(--dg-bg) 100%);
-    padding: 54px 0 70px;
+    padding: 54px 0 54px;
     overflow: hidden;
+}
+/* Sem o caminho (Página inicial > ...) embaixo do título */
+main.categorias .hero nav[aria-label="breadcrumb"] {
+    display: none !important;
 }
 main.categorias .hero::after {
     content: '';
@@ -234,7 +238,7 @@ main.categorias .hero::after {
     border-radius: 50% 50% 0 0 / 100% 100% 0 0;
 }
 main.categorias .hero .hero_title {
-    margin-bottom: 20px !important;
+    margin-bottom: 0 !important;
     font-family: var(--dg-font-title);
     font-weight: 700;
     font-size: clamp(2.2rem, 4.5vw, 3.4rem);
@@ -556,7 +560,7 @@ footer #base .txt h3 {
 /* ========== CELULAR ========== */
 @media (max-width: 640px) {
     main.categorias .hero {
-        padding: 34px 0 50px;
+        padding: 34px 0 34px;
     }
     #produto #produto-sku {
         padding: 18px 16px;
