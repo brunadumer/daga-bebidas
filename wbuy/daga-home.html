@@ -1,0 +1,1485 @@
+<!--
+    ========== DAGA BEBIDAS - NOVA PÁGINA INICIAL (WBUY) ==========
+    Onde fica no painel: Configurações > Scripts por página > "Daga - Nova home"
+    (Posição: Fim do Body / Página: Página principal).
+    Leva junto o estilo base da página "Conheça a Daga" (as mesmas classes dg-),
+    porque o campo de scripts de cada página de conteúdo só vale para ela.
+
+    O que faz:
+    - Coloca hero, destaque do Jambeijo, "Conheça a Daga" e faixa de novidades na home.
+    - Mantém as vitrines, o banner e a faixa de vantagens da wBuy (editáveis pelo painel),
+      só muda o visual e a ordem.
+    Atenção: o campo da wBuy grava em Latin-1. Não use travessão, emoji nem aspas curvas aqui.
+-->
+<style>
+/* ===== ESTILO BASE (igual ao da página Conheça a Daga) ===== */
+/* ========== DAGA BEBIDAS - ESTILO DA PÁGINA PARA A WBUY ========== */
+/* Tudo fica dentro de #daga-lp e as classes começam com "dg-",
+   assim o tema da loja não é afetado. */
+
+@import url('https://fonts.googleapis.com/css2?family=Antonio:wght@500;600;700&family=Outfit:wght@300;400;500;600;700&family=Saira+Condensed:wght@500;600;700&display=swap');
+
+/* ========== VARIÁVEIS CSS ========== */
+/* EDITÁVEL: Cores principais (caramelo da marca, café e creme) */
+#daga-lp {
+    --dg-primary: #a66421;
+    --dg-primary-dark: #1d1d1b;
+    --dg-primary-light: #d6c39b;
+    --dg-cafe: #1d1d1b;
+    --dg-bg: #f5f5f4;
+    --dg-bg-card: #ebe9e4;
+    --dg-white: #ffffff;
+    --dg-text: #1d1d1b;
+    --dg-text-light: #5f5d58;
+    --dg-price: #3f7a3a;
+    --dg-font: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --dg-font-title: 'Antonio', 'Arial Narrow', sans-serif;
+    --dg-font-label: 'Saira Condensed', 'Arial Narrow', sans-serif;
+    --dg-ouro: #9e814a;
+    --dg-shadow: 0 6px 24px rgba(29, 29, 27, 0.08);
+    --dg-shadow-hover: 0 14px 36px rgba(29, 29, 27, 0.16);
+    --dg-radius: 18px;
+    --dg-transition: all 0.3s ease;
+}
+
+/* ========== BASE (só dentro da página) ========== */
+/* Ocupa a largura toda da tela, mesmo dentro do container da loja.
+   O script ajusta a posição exata (ver daga-script.js, seção 1). */
+#daga-lp {
+    position: relative;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    background: var(--dg-bg);
+    color: var(--dg-text);
+    font-family: var(--dg-font);
+    font-size: 16px;
+    line-height: 1.6;
+    text-align: left;
+    overflow: hidden;
+}
+
+#daga-lp *,
+#daga-lp *::before,
+#daga-lp *::after {
+    box-sizing: border-box;
+}
+
+#daga-lp h1,
+#daga-lp h2,
+#daga-lp h3,
+#daga-lp p,
+#daga-lp ul,
+#daga-lp li,
+#daga-lp figure {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    letter-spacing: normal;
+    text-transform: none;
+    text-shadow: none;
+}
+
+#daga-lp ul,
+#daga-lp li {
+    list-style: none;
+}
+
+#daga-lp a {
+    color: inherit;
+    text-decoration: none;
+}
+
+#daga-lp img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border: 0;
+}
+
+#daga-lp button {
+    font-family: var(--dg-font);
+}
+
+#daga-lp section {
+    padding: 100px 0;
+    margin: 0;
+}
+
+#daga-lp .dg-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+/* ========== TIPOGRAFIA ========== */
+#daga-lp .dg-h1,
+#daga-lp .dg-h2 {
+    font-family: var(--dg-font-title);
+    font-weight: 700;
+    color: var(--dg-primary-dark);
+    line-height: 1.08;
+}
+
+#daga-lp .dg-h1 {
+    font-size: clamp(2.5rem, 5.6vw, 4.3rem);
+    margin-bottom: 1.2rem;
+}
+
+#daga-lp .dg-h2 {
+    font-size: clamp(2rem, 4vw, 2.9rem);
+    margin-bottom: 0.6rem;
+}
+
+#daga-lp .dg-h1 em,
+#daga-lp .dg-h2 em {
+    font-style: italic;
+    color: var(--dg-primary);
+}
+
+#daga-lp .dg-h3 {
+    font-family: var(--dg-font);
+    font-size: 1.1rem;
+    font-weight: 600;
+    line-height: 1.4;
+    margin-bottom: 0.4rem;
+}
+
+#daga-lp p {
+    color: var(--dg-text-light);
+    margin-bottom: 1rem;
+}
+
+#daga-lp .dg-eyebrow {
+    display: inline-block;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--dg-primary);
+    margin-bottom: 14px;
+}
+
+/* ========== BOTÕES ========== */
+#daga-lp .dg-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 14px 30px;
+    border-radius: 50px;
+    font-family: var(--dg-font);
+    font-weight: 600;
+    font-size: 0.92rem;
+    line-height: 1.2;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: var(--dg-transition);
+}
+
+#daga-lp .dg-btn-primary {
+    background: var(--dg-primary-dark);
+    color: var(--dg-white);
+}
+
+#daga-lp .dg-btn-primary:hover {
+    background: var(--dg-primary);
+    color: var(--dg-white);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 22px rgba(166, 100, 33, 0.3);
+}
+
+#daga-lp .dg-btn-ghost {
+    background: transparent;
+    color: var(--dg-primary-dark);
+    border-color: var(--dg-primary-dark);
+}
+
+#daga-lp .dg-btn-ghost:hover {
+    background: var(--dg-primary-dark);
+    color: var(--dg-white);
+}
+
+/* ========== HERO ========== */
+#daga-lp .dg-hero {
+    position: relative;
+    padding: 70px 0 130px;
+    background:
+        radial-gradient(circle at 75% 45%, rgba(158, 129, 74, 0.2) 0%, rgba(158, 129, 74, 0) 55%),
+        linear-gradient(180deg, #fbfbfa 0%, var(--dg-bg) 100%);
+    overflow: hidden;
+}
+
+#daga-lp .dg-hero-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+#daga-lp .dg-hero-content {
+    max-width: 540px;
+}
+
+#daga-lp .dg-hero-subtitle {
+    font-size: 1.08rem;
+    margin-bottom: 32px;
+}
+
+#daga-lp .dg-hero-buttons {
+    display: flex;
+    gap: 14px;
+    flex-wrap: wrap;
+}
+
+/* Composição com 3 garrafas */
+#daga-lp .dg-hero-garrafas {
+    position: relative;
+    height: 500px;
+}
+
+#daga-lp .dg-hero-circulo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 440px;
+    height: 440px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #cdb98f 0%, #9e814a 100%);
+    opacity: 0.55;
+    transform: translate(-50%, -50%);
+}
+
+/* As fotos têm fundo branco: o "multiply" faz o branco sumir no fundo creme */
+#daga-lp .dg-garrafa {
+    position: absolute;
+    bottom: 0;
+    max-width: none;
+    mix-blend-mode: multiply;
+    object-fit: contain;
+}
+
+#daga-lp .dg-garrafa-centro {
+    left: 50%;
+    width: 300px;
+    height: 400px;
+    bottom: 40px;
+    transform: translateX(-50%);
+    z-index: 2;
+    animation: dgFlutuar 5s ease-in-out infinite;
+}
+
+#daga-lp .dg-garrafa-esq {
+    left: 2%;
+    width: 240px;
+    height: 330px;
+    bottom: 20px;
+    transform: rotate(-6deg);
+}
+
+#daga-lp .dg-garrafa-dir {
+    right: 2%;
+    width: 240px;
+    height: 330px;
+    bottom: 20px;
+    transform: rotate(6deg);
+}
+
+@keyframes dgFlutuar {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(-10px); }
+}
+
+/* Curva decorativa na base do hero (feita em CSS porque o editor da wBuy remove SVG) */
+#daga-lp .dg-hero::after {
+    content: '';
+    position: absolute;
+    left: -10%;
+    right: -10%;
+    bottom: -1px;
+    height: 70px;
+    background: var(--dg-primary-dark);
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+}
+
+/* ========== VANTAGENS ========== */
+#daga-lp .dg-vantagens {
+    background: var(--dg-primary-dark);
+    color: var(--dg-white);
+    padding: 18px 0 22px;
+}
+
+#daga-lp .dg-vantagens-lista {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px 30px;
+    flex-wrap: wrap;
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+#daga-lp .dg-vantagens-lista div {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+#daga-lp .dg-vantagens-lista span {
+    font-size: 1.25rem;
+}
+
+/* ========== VITRINES DE PRODUTOS ========== */
+#daga-lp .dg-vitrine {
+    background: var(--dg-bg);
+    scroll-margin-top: 110px;
+}
+
+#daga-lp .dg-vitrine-alt {
+    background: var(--dg-white);
+}
+
+#daga-lp .dg-vitrine-topo {
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 16px 30px;
+    margin-bottom: 40px;
+}
+
+#daga-lp .dg-vitrine-topo.dg-centro {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+#daga-lp .dg-vitrine-topo .dg-h2,
+#daga-lp .dg-vitrine-topo p {
+    margin: 0;
+}
+
+#daga-lp .dg-vitrine-topo p {
+    max-width: 560px;
+}
+
+/* Abas de filtro */
+#daga-lp .dg-filtros {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+}
+
+#daga-lp .dg-filtro {
+    border: 0;
+    background: transparent;
+    font-size: 0.82rem;
+    font-weight: 600;
+    line-height: 1.2;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--dg-text-light);
+    padding: 9px 18px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: var(--dg-transition);
+}
+
+#daga-lp .dg-filtro:hover {
+    color: var(--dg-primary-dark);
+}
+
+#daga-lp .dg-filtro.dg-ativo {
+    background: var(--dg-primary-dark);
+    color: var(--dg-white);
+}
+
+/* Carrossel com rolagem horizontal */
+#daga-lp .dg-carrossel {
+    position: relative;
+}
+
+#daga-lp .dg-trilho {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: calc((100% - 3 * 22px) / 4);
+    gap: 22px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    scroll-behavior: smooth;
+    padding: 6px 2px 20px;
+    scrollbar-width: none;
+}
+
+#daga-lp .dg-trilho::-webkit-scrollbar {
+    display: none;
+}
+
+#daga-lp .dg-seta {
+    position: absolute;
+    top: 38%;
+    z-index: 2;
+    width: 46px;
+    height: 46px;
+    padding: 0;
+    border-radius: 50%;
+    border: 0;
+    background: var(--dg-white);
+    color: var(--dg-primary-dark);
+    font-size: 1.8rem;
+    line-height: 1;
+    cursor: pointer;
+    box-shadow: var(--dg-shadow-hover);
+    transition: var(--dg-transition);
+}
+
+#daga-lp .dg-seta:hover {
+    background: var(--dg-primary-dark);
+    color: var(--dg-white);
+}
+
+#daga-lp .dg-seta:disabled {
+    opacity: 0;
+    pointer-events: none;
+}
+
+#daga-lp .dg-anterior {
+    left: -22px;
+}
+
+#daga-lp .dg-proxima {
+    right: -22px;
+}
+
+/* Card de produto */
+#daga-lp .dg-card {
+    scroll-snap-align: start;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+#daga-lp .dg-card[hidden] {
+    display: none;
+}
+
+#daga-lp .dg-card-imagem {
+    position: relative;
+    aspect-ratio: 4 / 5;
+    border-radius: var(--dg-radius);
+    background: var(--dg-bg-card);
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+
+#daga-lp .dg-vitrine-alt .dg-card-imagem {
+    background: var(--dg-bg);
+}
+
+#daga-lp .dg-card-imagem img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 18px;
+    mix-blend-mode: multiply;
+    transition: transform 0.5s ease;
+}
+
+#daga-lp .dg-card:hover .dg-card-imagem img {
+    transform: scale(1.06);
+}
+
+#daga-lp .dg-tag {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    background: var(--dg-primary);
+    color: var(--dg-white);
+    font-size: 0.7rem;
+    font-weight: 600;
+    line-height: 1.4;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 4px 11px;
+    border-radius: 50px;
+}
+
+#daga-lp .dg-card .dg-h3 {
+    font-size: 0.98rem;
+    font-weight: 500;
+    color: var(--dg-text);
+    margin-bottom: 2px;
+}
+
+#daga-lp .dg-card-tipo {
+    font-size: 0.82rem;
+    color: #8a8780;
+    margin-bottom: 8px;
+}
+
+#daga-lp .dg-card-preco {
+    font-weight: 700;
+    color: var(--dg-price);
+    margin: 0;
+}
+
+#daga-lp .dg-card-preco small {
+    font-weight: 500;
+    font-size: 0.78rem;
+}
+
+#daga-lp .dg-card-parcela {
+    font-size: 0.78rem;
+    color: var(--dg-text-light);
+    margin: 0 0 14px;
+}
+
+#daga-lp .dg-comprar {
+    margin-top: auto;
+    align-self: center;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--dg-primary-dark);
+    border-bottom: 2px solid var(--dg-primary-light);
+    padding-bottom: 2px;
+    transition: var(--dg-transition);
+}
+
+#daga-lp .dg-card:hover .dg-comprar {
+    border-color: var(--dg-primary-dark);
+}
+
+/* ========== DESTAQUE JAMBEIJO ========== */
+#daga-lp .dg-destaque {
+    background: var(--dg-cafe);
+    color: var(--dg-white);
+}
+
+#daga-lp .dg-destaque-grid {
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 70px;
+    align-items: center;
+}
+
+#daga-lp .dg-destaque .dg-h2 {
+    color: var(--dg-white);
+}
+
+#daga-lp .dg-destaque .dg-h2 em {
+    color: #d6c39b;
+}
+
+#daga-lp .dg-destaque .dg-eyebrow {
+    color: var(--dg-primary-light);
+}
+
+#daga-lp .dg-destaque p {
+    color: rgba(255, 255, 255, 0.78);
+    font-size: 1.05rem;
+}
+
+#daga-lp .dg-destaque-lista {
+    margin: 24px 0 32px;
+    display: grid;
+    gap: 12px;
+}
+
+#daga-lp .dg-destaque-lista li {
+    position: relative;
+    padding-left: 26px;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 0.95rem;
+}
+
+#daga-lp .dg-destaque-lista li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 9px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #d6c39b;
+}
+
+#daga-lp .dg-destaque-lista strong {
+    color: var(--dg-white);
+}
+
+#daga-lp .dg-destaque-botoes {
+    display: flex;
+    align-items: center;
+    gap: 22px;
+    flex-wrap: wrap;
+}
+
+#daga-lp .dg-destaque .dg-btn-primary {
+    background: var(--dg-primary);
+}
+
+#daga-lp .dg-destaque .dg-btn-primary:hover {
+    background: var(--dg-white);
+    color: var(--dg-primary-dark);
+}
+
+#daga-lp .dg-destaque-preco {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 0.95rem;
+}
+
+#daga-lp .dg-destaque-preco strong {
+    color: var(--dg-white);
+}
+
+#daga-lp .dg-destaque-imagem {
+    border-radius: 220px 220px var(--dg-radius) var(--dg-radius);
+    overflow: hidden;
+    aspect-ratio: 3 / 4;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.35);
+}
+
+#daga-lp .dg-destaque-imagem img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* ========== SOBRE / DIFERENCIAIS ========== */
+#daga-lp .dg-sobre {
+    background: var(--dg-bg);
+}
+
+#daga-lp .dg-sobre-grid {
+    display: grid;
+    grid-template-columns: 1fr 300px 1fr;
+    gap: 40px;
+    align-items: center;
+}
+
+#daga-lp .dg-sobre-coluna {
+    display: grid;
+    gap: 38px;
+}
+
+#daga-lp .dg-sobre-coluna:first-child {
+    text-align: right;
+}
+
+#daga-lp .dg-diferencial .dg-h3 {
+    color: var(--dg-primary-dark);
+}
+
+#daga-lp .dg-diferencial p {
+    font-size: 0.93rem;
+    margin: 0;
+}
+
+#daga-lp .dg-sobre-garrafa {
+    position: relative;
+    height: 460px;
+}
+
+#daga-lp .dg-sobre-garrafa::before {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: 20px;
+    width: 260px;
+    height: 260px;
+    border-radius: 50%;
+    background: var(--dg-primary-light);
+    transform: translateX(-50%);
+}
+
+#daga-lp .dg-sobre-garrafa img {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+    -webkit-mask-image: radial-gradient(ellipse 48% 52% at 50% 50%, #000 70%, transparent 100%);
+    mask-image: radial-gradient(ellipse 48% 52% at 50% 50%, #000 70%, transparent 100%);
+}
+
+/* ========== NOVIDADES ========== */
+#daga-lp .dg-novidades {
+    background: var(--dg-white);
+    padding: 90px 0;
+}
+
+#daga-lp .dg-novidades-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+#daga-lp .dg-novidades-imagem {
+    position: relative;
+    height: 380px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+/* Meia-lua caramelo atrás do kit */
+#daga-lp .dg-novidades-arco {
+    position: absolute;
+    left: 50%;
+    bottom: 0;
+    width: 540px;
+    height: 270px;
+    border-radius: 270px 270px 0 0;
+    background: var(--dg-primary-dark);
+    transform: translateX(-50%);
+}
+
+#daga-lp .dg-novidades-imagem img {
+    position: relative;
+    width: 360px;
+    border-radius: var(--dg-radius);
+    box-shadow: var(--dg-shadow-hover);
+    margin-bottom: 30px;
+}
+
+#daga-lp .dg-novidades-info p {
+    font-size: 1.05rem;
+    margin-bottom: 26px;
+}
+
+#daga-lp .dg-novidades-info .dg-novidades-nota {
+    font-size: 0.85rem;
+    margin: 16px 0 0;
+}
+
+/* ========== RESPONSIVO ========== */
+@media (max-width: 1100px) {
+    #daga-lp .dg-trilho {
+        grid-auto-columns: calc((100% - 2 * 22px) / 3);
+    }
+
+    #daga-lp .dg-anterior {
+        left: -8px;
+    }
+
+    #daga-lp .dg-proxima {
+        right: -8px;
+    }
+}
+
+@media (max-width: 992px) {
+    #daga-lp .dg-hero-grid,
+    #daga-lp .dg-destaque-grid,
+    #daga-lp .dg-novidades-grid {
+        grid-template-columns: 1fr;
+    }
+
+    #daga-lp .dg-hero-content {
+        max-width: none;
+        text-align: center;
+    }
+
+    #daga-lp .dg-hero-buttons {
+        justify-content: center;
+    }
+
+    #daga-lp .dg-hero-garrafas {
+        height: 420px;
+        max-width: 560px;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    #daga-lp .dg-hero-circulo {
+        width: 340px;
+        height: 340px;
+    }
+
+    #daga-lp .dg-garrafa-centro {
+        width: 230px;
+        height: 320px;
+    }
+
+    #daga-lp .dg-garrafa-esq,
+    #daga-lp .dg-garrafa-dir {
+        width: 180px;
+        height: 250px;
+    }
+
+    #daga-lp .dg-destaque-imagem {
+        max-width: 420px;
+        width: 100%;
+        margin: 0 auto;
+    }
+
+    #daga-lp .dg-sobre-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    #daga-lp .dg-sobre-garrafa {
+        grid-column: 1 / -1;
+        grid-row: 1;
+        height: 340px;
+    }
+
+    #daga-lp .dg-sobre-coluna:first-child {
+        text-align: left;
+    }
+
+    #daga-lp .dg-novidades-info {
+        text-align: center;
+    }
+}
+
+@media (max-width: 640px) {
+    #daga-lp section {
+        padding: 70px 0;
+    }
+
+    #daga-lp .dg-hero {
+        padding: 50px 0 110px;
+    }
+
+    #daga-lp .dg-hero-buttons .dg-btn {
+        width: 100%;
+    }
+
+    #daga-lp .dg-hero-garrafas {
+        height: 330px;
+    }
+
+    #daga-lp .dg-hero-circulo {
+        width: 260px;
+        height: 260px;
+    }
+
+    #daga-lp .dg-garrafa-centro {
+        width: 180px;
+        height: 250px;
+        bottom: 30px;
+    }
+
+    #daga-lp .dg-garrafa-esq,
+    #daga-lp .dg-garrafa-dir {
+        width: 130px;
+        height: 185px;
+        bottom: 16px;
+    }
+
+    #daga-lp .dg-garrafa-esq {
+        left: 0;
+    }
+
+    #daga-lp .dg-garrafa-dir {
+        right: 0;
+    }
+
+    #daga-lp .dg-vantagens-lista {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        font-size: 0.8rem;
+    }
+
+    #daga-lp .dg-trilho {
+        grid-auto-columns: 72%;
+        gap: 16px;
+    }
+
+    #daga-lp .dg-seta {
+        display: none;
+    }
+
+    #daga-lp .dg-vitrine-topo {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    #daga-lp .dg-sobre-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+    }
+
+    #daga-lp .dg-sobre-coluna {
+        gap: 26px;
+    }
+
+    #daga-lp .dg-novidades-arco {
+        width: 340px;
+        height: 170px;
+    }
+
+    #daga-lp .dg-novidades-imagem {
+        height: 300px;
+    }
+
+    #daga-lp .dg-novidades-imagem img {
+        width: 260px;
+    }
+}
+
+/* ========== HOME: FAIXA DE VANTAGENS (a do painel) ========== */
+/* O tema deixa esses blocos flutuando (float); aqui eles voltam a ocupar a largura toda */
+#daga-lp .dg-faixa #alerts,
+#daga-lp .dg-banner-moldura,
+#daga-lp .dg-banner-moldura > .block,
+#daga-lp .dg-banner-moldura #slider,
+#daga-lp .dg-tema .vitrine_h {
+    float: none;
+    width: 100%;
+}
+
+#daga-lp .dg-faixa #alerts {
+    background: var(--dg-primary-dark);
+    color: var(--dg-white);
+    padding: 18px 0 22px;
+    margin: 0;
+}
+#daga-lp .dg-faixa #alerts .central {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(4, auto);
+    justify-content: space-between;
+    gap: 12px 30px;
+}
+#daga-lp .dg-faixa #alerts .item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    width: auto;
+    padding: 0;
+    margin: 0;
+    font-family: var(--dg-font);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--dg-white);
+}
+#daga-lp .dg-faixa #alerts .item *:not(i) {
+    color: inherit;
+    font-family: inherit;
+}
+#daga-lp .dg-faixa #alerts .item span {
+    white-space: normal;
+    line-height: 1.35;
+}
+#daga-lp .dg-faixa #alerts .item i {
+    color: var(--dg-primary-light);
+    font-size: 1.1rem;
+}
+
+/* ========== HOME: BANNER DO PAINEL (vira um card de lançamentos) ========== */
+#daga-lp .dg-banner {
+    background: var(--dg-bg);
+    padding: 70px 0 10px;
+}
+#daga-lp .dg-banner-moldura {
+    border-radius: var(--dg-radius);
+    overflow: hidden;
+    box-shadow: var(--dg-shadow-hover);
+}
+#daga-lp .dg-banner-moldura > .block {
+    margin: 0;
+}
+#daga-lp .dg-banner-moldura img {
+    width: 100%;
+}
+
+/* ========== HOME: VITRINES DA WBUY COM O VISUAL DA DAGA ========== */
+#daga-lp .dg-tema {
+    padding: 80px 0;
+}
+#daga-lp .dg-tema .vitrine_h {
+    margin: 0;
+    padding: 0;
+}
+#daga-lp .dg-tema .central {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+#daga-lp .dg-tema .vitrine_titulo {
+    text-align: center;
+    margin: 0 0 40px;
+    padding: 0;
+    border: 0;
+}
+#daga-lp .dg-tema .vitrine_titulo::before,
+#daga-lp .dg-tema .vitrine_titulo::after,
+#daga-lp .dg-tema .vitrine_titulo .titulo::before,
+#daga-lp .dg-tema .vitrine_titulo .titulo::after {
+    display: none;
+}
+#daga-lp .dg-tema .vitrine_titulo .titulo {
+    display: block;
+    font-family: var(--dg-font-title);
+    font-weight: 700;
+    font-size: clamp(2rem, 4vw, 2.9rem);
+    line-height: 1.08;
+    color: var(--dg-primary-dark);
+    text-transform: uppercase;
+    margin: 0 0 8px;
+}
+#daga-lp .dg-tema .vitrine_titulo .titulo::first-letter {
+    text-transform: uppercase;
+}
+#daga-lp .dg-tema .vitrine_titulo .subtitulo {
+    display: block;
+    font-family: var(--dg-font);
+    font-size: 1rem;
+    font-weight: 400;
+    color: var(--dg-text-light);
+    text-transform: none;
+    letter-spacing: normal;
+    margin: 0;
+}
+
+/* Vitrine em grade (sem carrossel) */
+#daga-lp .dg-tema .produtos.row:not(.owl-carousel) {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 26px;
+    margin: 0;
+}
+#daga-lp .dg-tema .produtos.row:not(.owl-carousel) > .prod {
+    width: auto;
+    max-width: none;
+    flex: none;
+    padding: 0;
+    margin: 0;
+}
+
+/* Carrossel: espaço para a sombra dos cards e setas redondas */
+#daga-lp .dg-tema .owl-stage-outer {
+    padding: 6px 4px 18px;
+}
+#daga-lp .dg-tema .owl-nav .owl-prev,
+#daga-lp .dg-tema .owl-nav .owl-next {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    background: var(--dg-white);
+    box-shadow: var(--dg-shadow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#daga-lp .dg-tema .owl-nav img {
+    width: 14px;
+    height: auto;
+}
+
+/* Card do produto */
+#daga-lp .dg-tema .item {
+    position: relative;
+    height: 100%;
+    background: var(--dg-white);
+    border: 0;
+    border-radius: var(--dg-radius);
+    padding: 14px 14px 22px;
+    box-shadow: var(--dg-shadow);
+    overflow: hidden;
+    text-align: center;
+    transition: var(--dg-transition);
+}
+#daga-lp .dg-tema .item:hover {
+    box-shadow: var(--dg-shadow-hover);
+    transform: translateY(-4px);
+}
+#daga-lp .dg-tema-alt .item {
+    background: var(--dg-bg);
+    box-shadow: none;
+}
+#daga-lp .dg-tema .item .fotos {
+    border-radius: 14px;
+    background: var(--dg-bg-card);
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+#daga-lp .dg-tema-alt .item .fotos {
+    background: var(--dg-white);
+}
+#daga-lp .dg-tema .item .fotos img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+    transition: transform 0.5s ease;
+}
+#daga-lp .dg-tema .item:hover .fotos img {
+    transform: scale(1.05);
+}
+#daga-lp .dg-tema .item h3.produto {
+    font-family: var(--dg-font);
+    font-size: 0.98rem;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--dg-text);
+    text-transform: none;
+    min-height: 2.8em;
+    margin: 0 0 10px;
+    padding: 0;
+}
+#daga-lp .dg-tema .item .valor p,
+#daga-lp .dg-tema .item .parcelamento p {
+    margin: 0;
+    font-family: var(--dg-font);
+}
+#daga-lp .dg-tema .item .valor_final,
+#daga-lp .dg-tema .item .valor_final span {
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--dg-price);
+}
+#daga-lp .dg-tema .item .texto_boleto {
+    font-size: 0.78rem;
+    color: var(--dg-text-light);
+}
+#daga-lp .dg-tema .item .valor_ou {
+    display: none;
+}
+#daga-lp .dg-tema .item .parcelamento p {
+    font-size: 0.8rem;
+    color: var(--dg-text-light);
+    margin-top: 4px;
+}
+#daga-lp .dg-tema .item .parcelamento strong {
+    color: var(--dg-text);
+}
+
+/* Selos (ex.: PREMIADO) */
+#daga-lp .dg-tema .item [class*="selo"],
+#daga-lp .dg-tema .item [class*="tag"] {
+    border-radius: 50px;
+    background: var(--dg-primary);
+    color: var(--dg-white);
+    font-family: var(--dg-font);
+    font-size: 0.7rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+}
+
+/* Botão "Adicionar" que aparece ao passar o mouse */
+#daga-lp .dg-tema .item .options {
+    background: transparent;
+}
+#daga-lp .dg-tema .item .bt-comprar {
+    border-radius: 50px;
+    background: var(--dg-primary-dark);
+    border: 0;
+    color: var(--dg-white);
+    font-family: var(--dg-font);
+    font-weight: 600;
+    letter-spacing: 0.06em;
+}
+#daga-lp .dg-tema .item .bt-comprar:hover {
+    background: var(--dg-primary);
+}
+
+#daga-lp .dg-sobre-mais {
+    text-align: center;
+    margin-top: 50px;
+}
+
+#daga-lp .dg-vitrine-alt.dg-tema {
+    background: var(--dg-white);
+}
+
+@media (max-width: 992px) {
+    #daga-lp .dg-tema .produtos.row:not(.owl-carousel) {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media (max-width: 900px) {
+    #daga-lp .dg-faixa #alerts .central {
+        grid-template-columns: repeat(2, auto);
+        justify-content: space-around;
+    }
+}
+
+@media (max-width: 640px) {
+    #daga-lp .dg-banner {
+        padding: 40px 0 0;
+    }
+    #daga-lp .dg-tema {
+        padding: 56px 0;
+    }
+    #daga-lp .dg-tema .vitrine_titulo {
+        margin-bottom: 26px;
+    }
+    #daga-lp .dg-tema .produtos.row:not(.owl-carousel) {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 14px;
+    }
+    #daga-lp .dg-tema .item {
+        padding: 10px 10px 16px;
+    }
+    #daga-lp .dg-tema .item h3.produto {
+        font-size: 0.86rem;
+    }
+    #daga-lp .dg-faixa #alerts .central {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 14px 16px;
+    }
+    #daga-lp .dg-faixa #alerts .item {
+        font-size: 0.8rem;
+    }
+}
+
+/* ========== IDENTIDADE VISUAL DAGA (guia oficial) ========== */
+#daga-lp .dg-h1,
+#daga-lp .dg-h2,
+#daga-lp .dg-tema .vitrine_titulo .titulo {
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    line-height: 1.1;
+}
+#daga-lp .dg-h1 em,
+#daga-lp .dg-h2 em {
+    font-style: normal;
+}
+#daga-lp .dg-eyebrow,
+#daga-lp .dg-btn {
+    font-family: var(--dg-font-label);
+    letter-spacing: 0.16em;
+}
+#daga-lp .dg-eyebrow {
+    font-size: 0.86rem;
+}
+#daga-lp .dg-btn {
+    font-size: 0.95rem;
+}
+#daga-lp .dg-h3 {
+    font-weight: 600;
+}
+</style>
+
+<script>
+(function() {
+    'use strict';
+
+    // Fotos da loja
+    const IMG = 'https://assets.sistemawbuy.com.br/arquivos/829e6bff907fc6de7a54a7629c9eeafe/produtos/';
+
+    /* =====================================================
+       1. SEÇÕES NOVAS
+       ===================================================== */
+
+    // EDITÁVEL: Hero
+    const HERO = `
+        <section class="dg-hero">
+            <div class="dg-container dg-hero-grid">
+                <div class="dg-hero-content">
+                    <span class="dg-eyebrow">Licores e cacha&ccedil;as &middot; Curitiba-PR</span>
+                    <TITULO class="dg-h1">A cacha&ccedil;a brasileira em um <em>novo patamar.</em></TITULO>
+                    <p class="dg-hero-subtitle">Licores ex&oacute;ticos, como o famoso Licor do Beijo com jambu, e cacha&ccedil;as envelhecidas em madeiras brasileiras. Tradi&ccedil;&atilde;o e inova&ccedil;&atilde;o para transformar momentos comuns em celebra&ccedil;&otilde;es.</p>
+                    <div class="dg-hero-buttons">
+                        <a href="#dg-vitrines" class="dg-btn dg-btn-primary">Ver as bebidas</a>
+                        <a href="/m/conheca-a-daga/" class="dg-btn dg-btn-ghost">Conhe&ccedil;a a Daga</a>
+                    </div>
+                </div>
+                <div class="dg-hero-garrafas">
+                    <div class="dg-hero-circulo"></div>
+                    <img src="${IMG}690f56d219a4a/18-69177a706367a_mini.jpg" alt="Cacha&ccedil;a Daga Blend Reserva Porto" class="dg-garrafa dg-garrafa-esq">
+                    <img src="${IMG}68dff2cdbae5f/jambeijo-500-site-sem-fundo-6ad65d2819f9d_mini.jpeg" alt="Jambeijo, o Licor do Beijo" class="dg-garrafa dg-garrafa-centro">
+                    <img src="${IMG}690f56d878019/single-barrel-site-69176ee9752cc_mini.jpg" alt="Cacha&ccedil;a Daga Single Barrel Carvalho Americano" class="dg-garrafa dg-garrafa-dir">
+                </div>
+            </div>
+        </section>`;
+
+    // EDITÁVEL: Destaque do Jambeijo (sem preço fixo: o preço certo fica nas vitrines)
+    const DESTAQUE = `
+        <section class="dg-destaque">
+            <div class="dg-container dg-destaque-grid">
+                <div class="dg-destaque-info">
+                    <span class="dg-eyebrow">O nosso carro-chefe</span>
+                    <h2 class="dg-h2">Jambeijo, o famoso <em>Licor do Beijo</em></h2>
+                    <p>Atrevido, gostoso e inesquec&iacute;vel. Uma combina&ccedil;&atilde;o surpreendente entre o apimentado das especiarias e a vibra&ccedil;&atilde;o do jambu da Amaz&ocirc;nia, perfeita para quebrar o gelo e virar a estrela do seu bar.</p>
+                    <ul class="dg-destaque-lista">
+                        <li><strong>Ingredientes:</strong> cacha&ccedil;a, flor de jambu, cravo, canela e pimenta-da-jamaica</li>
+                        <li><strong>Sensa&ccedil;&atilde;o:</strong> formigamento e vibra&ccedil;&atilde;o na l&iacute;ngua e nos l&aacute;bios</li>
+                        <li><strong>O ritual:</strong> sirva bem gelado, em dose de shot, e deixe o licor percorrer a boca</li>
+                    </ul>
+                    <div class="dg-destaque-botoes">
+                        <a href="/daga-bebidas-licor-fino-jambeijo-500-ml/" class="dg-btn dg-btn-primary">Quero sentir essa sensa&ccedil;&atilde;o</a>
+                        <span class="dg-destaque-preco">Licor fino &middot; <strong>500ml</strong></span>
+                    </div>
+                </div>
+                <div class="dg-destaque-imagem">
+                    <img src="${IMG}68dff2cdbae5f/jambeijo-site-ambientado-6ad65d2818aec.jpeg" alt="Garrafa do Jambeijo em ambiente" loading="lazy">
+                </div>
+            </div>
+        </section>`;
+
+    // EDITÁVEL: Conheça a Daga
+    const SOBRE = `
+        <section class="dg-sobre">
+            <div class="dg-container">
+                <div class="dg-vitrine-topo dg-centro">
+                    <h2 class="dg-h2">Conhe&ccedil;a a Daga</h2>
+                    <p>Uma marca jovem e divertida, apaixonada por transformar momentos comuns em celebra&ccedil;&otilde;es &uacute;nicas.</p>
+                </div>
+                <div class="dg-sobre-grid">
+                    <div class="dg-sobre-coluna">
+                        <div class="dg-diferencial">
+                            <h3 class="dg-h3">Nascida em Curitiba</h3>
+                            <p>Idealizada por Giovani Daga, empres&aacute;rio e cachacista, para levar a cacha&ccedil;a e os licores brasileiros a um novo patamar.</p>
+                        </div>
+                        <div class="dg-diferencial">
+                            <h3 class="dg-h3">O Licor do Beijo</h3>
+                            <p>O Jambeijo, feito com jambu e especiarias, &eacute; a experi&ecirc;ncia sensorial que virou a marca registrada da casa.</p>
+                        </div>
+                        <div class="dg-diferencial">
+                            <h3 class="dg-h3">Madeiras brasileiras</h3>
+                            <p>Cacha&ccedil;as envelhecidas em Jequitib&aacute;, Amburana, Louro Canela e Carvalho, cada uma com personalidade pr&oacute;pria.</p>
+                        </div>
+                    </div>
+                    <div class="dg-sobre-garrafa">
+                        <img src="${IMG}690f56d654517/louro-canela-6917721d75844_mini.jpg" alt="Cacha&ccedil;a Daga Louro Canela" loading="lazy">
+                    </div>
+                    <div class="dg-sobre-coluna">
+                        <div class="dg-diferencial">
+                            <h3 class="dg-h3">R&oacute;tulos premiados</h3>
+                            <p>Destaque para a Cacha&ccedil;a Daga Jequitib&aacute;, premiada e um dos orgulhos da nossa linha de envelhecidas.</p>
+                        </div>
+                        <div class="dg-diferencial">
+                            <h3 class="dg-h3">Cacha&ccedil;a para todos</h3>
+                            <p>Nossa miss&atilde;o &eacute; democratizar a cacha&ccedil;a: qualidade acess&iacute;vel e sempre com incentivo ao consumo consciente.</p>
+                        </div>
+                        <div class="dg-diferencial">
+                            <h3 class="dg-h3">Chega inteira na sua casa</h3>
+                            <p>Cada pedido &eacute; embalado com cuidado para n&atilde;o sofrer avarias e viaja pelos Correios para todo o Brasil.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="dg-sobre-mais">
+                    <a href="/m/conheca-a-daga/" class="dg-btn dg-btn-ghost">Saiba mais sobre a Daga</a>
+                </div>
+            </div>
+        </section>`;
+
+    // EDITÁVEL: Número e mensagem do WhatsApp
+    const NOVIDADES = `
+        <section class="dg-novidades">
+            <div class="dg-container dg-novidades-grid">
+                <div class="dg-novidades-imagem">
+                    <div class="dg-novidades-arco"></div>
+                    <img src="${IMG}68fd7a19efd13/12-2-photoroom-jegj33wn8i-68fff3267ba6a_mini.jpg" alt="Kit com 5 miniaturas de cacha&ccedil;a Daga em caixa de MDF" loading="lazy">
+                </div>
+                <div class="dg-novidades-info">
+                    <h2 class="dg-h2">Fique sabendo das nossas novidades</h2>
+                    <p>Lan&ccedil;amentos, kits para presentear e descontos exclusivos direto no seu WhatsApp.</p>
+                    <a href="https://wa.me/5541992003693?text=Ol%C3%A1!%20Quero%20receber%20as%20novidades%20e%20descontos%20da%20Daga%20Bebidas." class="dg-btn dg-btn-primary" target="_blank" rel="noopener">Quero receber as novidades</a>
+                    <p class="dg-novidades-nota">Atendimento de segunda a sexta, das 8h &agrave;s 17h.</p>
+                </div>
+            </div>
+        </section>`;
+
+    /* =====================================================
+       2. MONTAGEM DA HOME
+       =====================================================
+       Ordem: hero > vantagens > banner > vitrine 1 > Jambeijo >
+       vitrine 2 > Conheça a Daga > demais vitrines > novidades.
+       Banner, vantagens e vitrines continuam vindo do painel.
+    */
+
+    function montar() {
+        // Só na página inicial da loja
+        const home = document.getElementById('page_home');
+        if (!home || document.querySelector('.dg-home')) return;
+
+        const temH1 = !!document.querySelector('h1');
+        const tituloTag = temH1 ? 'h2' : 'h1';
+
+        const pagina = document.createElement('div');
+        pagina.id = 'daga-lp';
+        pagina.className = 'dg dg-home';
+        pagina.dataset.dgPronto = 'sim'; // o script da página "Conheça a Daga" não mexe aqui
+        pagina.innerHTML = HERO.replace(/TITULO/g, tituloTag);
+
+        const banner = home.querySelector(':scope > .block');
+        const alertas = document.getElementById('alerts');
+        const vitrines = Array.from(home.querySelectorAll('.vitrine_h'));
+
+        if (alertas) {
+            const faixa = document.createElement('div');
+            faixa.className = 'dg-faixa';
+            faixa.appendChild(alertas);
+            pagina.appendChild(faixa);
+        }
+
+        if (banner) {
+            const secao = document.createElement('section');
+            secao.className = 'dg-banner';
+            secao.innerHTML = '<div class="dg-container"><div class="dg-banner-moldura"></div></div>';
+            secao.querySelector('.dg-banner-moldura').appendChild(banner);
+            pagina.appendChild(secao);
+        }
+
+        function adicionar(html) {
+            pagina.insertAdjacentHTML('beforeend', html);
+        }
+
+        vitrines.forEach((vitrine, i) => {
+            const secao = document.createElement('section');
+            const alt = i % 2 === 1;
+            secao.className = 'dg-vitrine dg-tema' + (alt ? ' dg-vitrine-alt dg-tema-alt' : '');
+            if (i === 0) secao.id = 'dg-vitrines';
+            secao.appendChild(vitrine);
+            pagina.appendChild(secao);
+
+            if (i === 0) adicionar(DESTAQUE);
+            if (i === 1) adicionar(SOBRE);
+        });
+
+        if (vitrines.length < 2) adicionar(SOBRE);
+        adicionar(NOVIDADES);
+
+        home.insertBefore(pagina, home.firstChild);
+
+        // A seção original das vitrines ficou vazia
+        const antiga = home.querySelector(':scope > section.home');
+        if (antiga) antiga.style.display = 'none';
+
+        // Largura total da tela
+        function esticar() {
+            pagina.style.marginLeft = '0px';
+            pagina.style.width = document.documentElement.clientWidth + 'px';
+            pagina.style.marginLeft = (-pagina.getBoundingClientRect().left) + 'px';
+        }
+        esticar();
+        window.addEventListener('resize', esticar);
+
+        // Os carrosséis mudaram de lugar: recalcula o tamanho deles
+        function recalcular() {
+            if (window.jQuery) {
+                window.jQuery(pagina).find('.owl-carousel').trigger('refresh.owl.carousel');
+            }
+        }
+        setTimeout(recalcular, 300);
+        window.addEventListener('load', recalcular);
+
+        // Rolagem suave até as vitrines
+        pagina.querySelectorAll('a[href="#dg-vitrines"]').forEach(link => {
+            link.addEventListener('click', e => {
+                const alvo = document.getElementById('dg-vitrines');
+                if (!alvo) return;
+                e.preventDefault();
+                window.scrollTo({ top: alvo.getBoundingClientRect().top + window.scrollY - 90, behavior: 'smooth' });
+            });
+        });
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', montar);
+    } else {
+        montar();
+    }
+})();
+</script>

@@ -1,0 +1,597 @@
+<!--
+    ========== DAGA BEBIDAS - VISUAL GERAL DA LOJA (WBUY) ==========
+    Onde fica no painel: Configurações > Scripts por página > "Daga - Visual geral"
+    (Posição: HEAD / Página: Todas as páginas).
+
+    Deixa topo, rodapé, categorias, busca, produto, carrinho e checkout com o mesmo
+    visual da nova página inicial (cores do guia Daga: cobre, ouro, prata e preto; fontes Antonio, Saira Condensed e Outfit,
+    cards arredondados). Só CSS: não mexe em preço, estoque, frete nem pagamento.
+    Atenção: o campo da wBuy grava em Latin-1. Não use travessão, emoji nem aspas curvas aqui.
+-->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Antonio:wght@500;600;700&family=Outfit:wght@300;400;500;600;700&family=Saira+Condensed:wght@500;600;700&display=swap');
+
+/* ========== CORES E FONTES (EDITÁVEL) ========== */
+:root {
+    --dg-primary: #a66421;
+    --dg-primary-dark: #1d1d1b;
+    --dg-primary-light: #d6c39b;
+    --dg-cafe: #1d1d1b;
+    --dg-bg: #f5f5f4;
+    --dg-bg-card: #ebe9e4;
+    --dg-white: #ffffff;
+    --dg-text: #1d1d1b;
+    --dg-text-light: #5f5d58;
+    --dg-price: #3f7a3a;
+    --dg-font: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --dg-font-title: 'Antonio', 'Arial Narrow', sans-serif;
+    --dg-font-label: 'Saira Condensed', 'Arial Narrow', sans-serif;
+    --dg-ouro: #9e814a;
+    --dg-shadow: 0 6px 24px rgba(29, 29, 27, 0.08);
+    --dg-shadow-hover: 0 14px 36px rgba(29, 29, 27, 0.16);
+    --dg-radius: 18px;
+}
+
+/* ========== BASE ========== */
+body {
+    background: var(--dg-bg);
+    color: var(--dg-text);
+    font-family: var(--dg-font);
+}
+
+/* Botões principais da loja (comprar, finalizar, continuar) */
+.bt-comprar,
+.bt-finalizar,
+#finish .btn-dark,
+#finish button[type="submit"] {
+    border-radius: 50px !important;
+    background: var(--dg-primary-dark) !important;
+    border-color: var(--dg-primary-dark) !important;
+    color: var(--dg-white) !important;
+    font-family: var(--dg-font) !important;
+    font-weight: 600 !important;
+    letter-spacing: 0.04em;
+    transition: all 0.3s ease;
+}
+.bt-comprar:hover,
+.bt-finalizar:hover,
+#finish .btn-dark:hover,
+#finish button[type="submit"]:hover {
+    background: var(--dg-primary) !important;
+    border-color: var(--dg-primary) !important;
+}
+
+/* ========== TOPO ========== */
+header .logoheader,
+header .links,
+header .menu_scroll {
+    font-family: var(--dg-font);
+}
+header .links nav > ul > li > a,
+header .menu_scroll a {
+    font-family: var(--dg-font);
+    font-weight: 500;
+    letter-spacing: 0.06em;
+}
+header .links nav > ul > li > a {
+    position: relative;
+}
+header .links nav > ul > li > a::after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    right: 50%;
+    bottom: -4px;
+    height: 2px;
+    background: var(--dg-primary-light);
+    transition: all 0.3s ease;
+}
+header .links nav > ul > li:hover > a::after {
+    left: 12px;
+    right: 12px;
+}
+/* Menu suspenso */
+header .links .drop {
+    background: var(--dg-white);
+    border-top: 3px solid var(--dg-primary-light);
+    box-shadow: var(--dg-shadow-hover);
+}
+header .links .drop a {
+    font-family: var(--dg-font);
+}
+header .links .drop a:hover {
+    color: var(--dg-primary);
+}
+/* Busca */
+header .search input,
+header input[name="q"],
+header input[type="search"] {
+    border-radius: 50px;
+    font-family: var(--dg-font);
+}
+
+/* ========== CARDS DE PRODUTO (categorias, busca, relacionados, vitrines) ========== */
+#departamentos .produtos .item,
+#prod-relacionados .produtos .item,
+.vitrine_h .item {
+    position: relative;
+    height: 100%;
+    background: var(--dg-white);
+    border: 0;
+    border-radius: var(--dg-radius);
+    padding: 14px 14px 22px;
+    box-shadow: var(--dg-shadow);
+    overflow: hidden;
+    text-align: center;
+    transition: all 0.3s ease;
+}
+#departamentos .produtos .item:hover,
+#prod-relacionados .produtos .item:hover,
+.vitrine_h .item:hover {
+    box-shadow: var(--dg-shadow-hover);
+    transform: translateY(-4px);
+}
+#departamentos .produtos .item .fotos,
+#prod-relacionados .produtos .item .fotos,
+.vitrine_h .item .fotos {
+    border-radius: 14px;
+    background: var(--dg-bg-card);
+    overflow: hidden;
+    margin-bottom: 16px;
+}
+#departamentos .produtos .item .fotos img,
+#prod-relacionados .produtos .item .fotos img,
+.vitrine_h .item .fotos img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: contain;
+    mix-blend-mode: multiply;
+    transition: transform 0.5s ease;
+}
+#departamentos .produtos .item:hover .fotos img,
+#prod-relacionados .produtos .item:hover .fotos img,
+.vitrine_h .item:hover .fotos img {
+    transform: scale(1.05);
+}
+#departamentos .produtos .item h3.produto,
+#prod-relacionados .produtos .item h3.produto,
+.vitrine_h .item h3.produto {
+    font-family: var(--dg-font);
+    font-size: 0.98rem;
+    font-weight: 500;
+    line-height: 1.4;
+    color: var(--dg-text);
+    text-transform: none;
+    min-height: 2.8em;
+    margin: 0 0 10px;
+    padding: 0;
+}
+#departamentos .produtos .item .valor_final,
+#departamentos .produtos .item .valor_final span,
+#prod-relacionados .produtos .item .valor_final,
+#prod-relacionados .produtos .item .valor_final span,
+.vitrine_h .item .valor_final,
+.vitrine_h .item .valor_final span {
+    font-family: var(--dg-font);
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--dg-price);
+}
+#departamentos .produtos .item .valor_ou,
+#prod-relacionados .produtos .item .valor_ou,
+.vitrine_h .item .valor_ou {
+    display: none;
+}
+#departamentos .produtos .item .texto_boleto,
+#departamentos .produtos .item .parcelamento p,
+#prod-relacionados .produtos .item .texto_boleto,
+#prod-relacionados .produtos .item .parcelamento p,
+.vitrine_h .item .texto_boleto,
+.vitrine_h .item .parcelamento p {
+    font-family: var(--dg-font);
+    font-size: 0.8rem;
+    color: var(--dg-text-light);
+    margin: 0;
+}
+#departamentos .produtos .item .parcelamento strong,
+#prod-relacionados .produtos .item .parcelamento strong,
+.vitrine_h .item .parcelamento strong {
+    color: var(--dg-text);
+}
+#departamentos .produtos .item .options,
+#prod-relacionados .produtos .item .options,
+.vitrine_h .item .options {
+    background: transparent;
+}
+
+/* ========== CATEGORIAS E BUSCA ========== */
+main.categorias .hero {
+    position: relative;
+    background:
+        radial-gradient(circle at 80% 30%, rgba(158, 129, 74, 0.2) 0%, rgba(158, 129, 74, 0) 50%),
+        linear-gradient(180deg, #fbfbfa 0%, var(--dg-bg) 100%);
+    padding: 54px 0 70px;
+    overflow: hidden;
+}
+main.categorias .hero::after {
+    content: '';
+    position: absolute;
+    left: -10%;
+    right: -10%;
+    bottom: -1px;
+    height: 34px;
+    background: var(--dg-bg);
+    border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+}
+main.categorias .hero .hero_title {
+    font-family: var(--dg-font-title);
+    font-weight: 700;
+    font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+    line-height: 1.05;
+    color: var(--dg-primary-dark);
+    text-transform: uppercase;
+    letter-spacing: normal;
+}
+main.categorias .hero .hero_title::first-letter {
+    text-transform: uppercase;
+}
+main.categorias .hero .breadcrumb,
+main.categorias .hero .breadcrumb a,
+main.categorias .hero span {
+    font-family: var(--dg-font);
+    color: var(--dg-text-light);
+    background: transparent;
+}
+main.categorias .hero .breadcrumb a:hover {
+    color: var(--dg-primary);
+}
+#departamentos {
+    background: var(--dg-bg);
+    padding-bottom: 60px;
+}
+#departamentos .filtros {
+    background: var(--dg-white);
+    border-radius: 50px;
+    box-shadow: var(--dg-shadow);
+    margin-bottom: 30px;
+}
+#departamentos .filtros button {
+    font-family: var(--dg-font);
+    font-weight: 500;
+    color: var(--dg-primary-dark);
+}
+#departamentos .produtos .row {
+    margin-left: -13px;
+    margin-right: -13px;
+}
+#departamentos .produtos .row > [class*="col"] {
+    padding-left: 13px;
+    padding-right: 13px;
+    margin-bottom: 26px;
+}
+
+/* Títulos de vitrines fora da home (a home tem o estilo dela) */
+.vitrine_h .vitrine_titulo .titulo {
+    font-family: var(--dg-font-title);
+    font-weight: 700;
+    color: var(--dg-primary-dark);
+    text-transform: uppercase;
+    letter-spacing: normal;
+}
+.vitrine_h .vitrine_titulo .titulo::first-letter {
+    text-transform: uppercase;
+}
+.vitrine_h .vitrine_titulo .subtitulo {
+    font-family: var(--dg-font);
+    color: var(--dg-text-light);
+    text-transform: none;
+}
+/* O tema coloca uma barra "/" depois dos títulos */
+#produto .titulo::after,
+#produto .titulo::before,
+.vitrine_titulo .titulo::after,
+.vitrine_titulo .titulo::before {
+    content: none !important;
+}
+
+/* ========== PÁGINA DO PRODUTO ========== */
+#produto {
+    background: var(--dg-bg);
+}
+#produto .banner_topo {
+    border-radius: var(--dg-radius);
+    overflow: hidden;
+    box-shadow: var(--dg-shadow);
+}
+#produto .breadcrumb,
+#produto .breadcrumb a {
+    font-family: var(--dg-font);
+    background: transparent;
+    color: var(--dg-text-light);
+}
+#produto > .central > div > .cln > .fotos .big {
+    background: var(--dg-white);
+    border-radius: var(--dg-radius);
+    overflow: hidden;
+    box-shadow: var(--dg-shadow);
+}
+#produto > .central > div > .cln > .fotos .mini .item img {
+    border-radius: 10px;
+}
+#produto .detalhes .nome_produto {
+    font-family: var(--dg-font-title);
+    font-weight: 700;
+    font-size: clamp(1.8rem, 3vw, 2.4rem);
+    line-height: 1.12;
+    color: var(--dg-primary-dark);
+}
+#produto .detalhes .codigo_produto {
+    font-family: var(--dg-font);
+    font-size: 0.78rem;
+    color: #8a8780;
+}
+#produto #produto-sku {
+    background: var(--dg-white);
+    border-radius: var(--dg-radius);
+    padding: 24px 26px;
+    box-shadow: var(--dg-shadow);
+    margin: 16px 0 22px;
+}
+#produto #produto-sku .valores .valor,
+#produto #produto-sku .valores .valor span {
+    font-family: var(--dg-font);
+    font-weight: 700;
+    color: var(--dg-price);
+}
+#produto #produto-sku .box-valor-por,
+#produto #produto-sku .text-boleto,
+#produto #produto-sku .parcelas p,
+#produto #produto-sku .clube-info-pontos p {
+    font-family: var(--dg-font);
+    color: var(--dg-text-light);
+}
+#produto #produto-sku .quantidade,
+#produto #produto-sku .cep {
+    border-radius: 50px;
+    font-family: var(--dg-font);
+}
+#produto #produto-sku .cep {
+    border: 1px solid #dddbd6 !important;
+    border-radius: 50px !important;
+    padding-left: 18px;
+}
+#produto #produto-sku .bt-frete {
+    border-radius: 50px;
+    background: var(--dg-white);
+    border: 2px solid var(--dg-primary-dark);
+    color: var(--dg-primary-dark);
+    font-family: var(--dg-font);
+    font-weight: 600;
+}
+#produto #produto-sku .bt-frete:hover {
+    background: var(--dg-primary-dark);
+    color: var(--dg-white);
+}
+#produto .detalhes .descricao .t {
+    font-family: var(--dg-font);
+    font-weight: 600;
+    color: var(--dg-primary-dark);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    font-size: 0.82rem;
+}
+#produto .detalhes .descricao .texto {
+    font-family: var(--dg-font);
+    line-height: 1.7;
+}
+#produto #comentarios .titulo,
+#produto #prod-relacionados .titulo {
+    font-family: var(--dg-font-title);
+    font-weight: 700;
+    font-size: clamp(1.9rem, 3.5vw, 2.6rem);
+    color: var(--dg-primary-dark);
+    text-transform: uppercase;
+    text-align: center;
+    letter-spacing: normal;
+    margin-bottom: 30px;
+}
+#produto #comentarios .titulo::first-letter,
+#produto #prod-relacionados .titulo::first-letter {
+    text-transform: uppercase;
+}
+
+/* ========== CARRINHO ========== */
+#carrinho {
+    background: var(--dg-bg);
+}
+#carrinho .cart-products,
+#carrinho #inc_brindes .brindes-disponiveis,
+#carrinho .resumo {
+    background: var(--dg-white);
+    border: 0;
+    border-radius: var(--dg-radius);
+    box-shadow: var(--dg-shadow);
+}
+#carrinho .cart-products h2,
+#carrinho .cart-products h3:not(.produto),
+#carrinho .resumo .title {
+    font-family: var(--dg-font-title);
+    font-weight: 700;
+    color: var(--dg-primary-dark);
+    font-size: 1.6rem;
+}
+#carrinho .produtos_cart .foto img {
+    border-radius: 12px;
+}
+#carrinho .produtos_cart h3.produto {
+    font-family: var(--dg-font);
+    font-weight: 500;
+}
+#carrinho .valor_parcial,
+#carrinho .resumo .total,
+#carrinho .resumo [class*="total"] strong {
+    color: var(--dg-primary-dark);
+}
+#carrinho .resumo input {
+    border-radius: 50px;
+    font-family: var(--dg-font);
+}
+#carrinho .resumo button {
+    color: var(--dg-primary-dark);
+    font-weight: 600;
+}
+#carrinho .bt-finalizar,
+#carrinho .bt-continuar {
+    border-radius: 50px !important;
+    font-family: var(--dg-font);
+    font-weight: 600;
+}
+#carrinho .bt-continuar {
+    background: transparent !important;
+    border: 2px solid var(--dg-primary-dark) !important;
+    color: var(--dg-primary-dark) !important;
+}
+#carrinho .bt-continuar:hover {
+    background: var(--dg-primary-dark) !important;
+    color: var(--dg-white) !important;
+}
+#carrinho #inc_brindes .brindes-disponiveis {
+    border-left: 4px solid var(--dg-primary) !important;
+}
+#carrinho .escolher-brinde {
+    border: 2px dashed var(--dg-primary) !important;
+    border-radius: 14px;
+    color: var(--dg-primary-dark) !important;
+    background: #f5f5f4;
+}
+#carrinho .escolher-brinde * {
+    color: var(--dg-primary-dark) !important;
+    font-family: var(--dg-font);
+    font-weight: 600;
+}
+
+/* ========== CHECKOUT (só cores e fontes) ========== */
+#finish,
+#finish .main {
+    background: var(--dg-bg);
+}
+#finish .main > header {
+    background: var(--dg-primary-dark);
+    border-radius: var(--dg-radius);
+}
+#finish .box {
+    background: var(--dg-white);
+    border-radius: 14px;
+    box-shadow: var(--dg-shadow);
+}
+#finish .box .header .t {
+    font-family: var(--dg-font-title);
+    font-weight: 700;
+    font-size: 1.35rem;
+    color: var(--dg-primary-dark);
+}
+#finish .box .header .step {
+    background: var(--dg-primary-light);
+    color: var(--dg-primary-dark);
+    border-color: var(--dg-primary-light);
+    font-weight: 700;
+}
+#finish input.form-control,
+#finish select.form-control {
+    border-radius: 10px;
+    font-family: var(--dg-font);
+}
+#finish input.form-control:focus,
+#finish select.form-control:focus {
+    border-color: var(--dg-primary);
+    box-shadow: 0 0 0 3px rgba(166, 100, 33, 0.15);
+}
+#finish .cart-review h3 {
+    font-family: var(--dg-font-title);
+    font-weight: 700;
+    color: var(--dg-primary-dark);
+    font-size: 1.4rem;
+}
+
+/* ========== RODAPÉ ========== */
+footer #base {
+    background: var(--dg-cafe);
+    border-top: 6px solid var(--dg-primary);
+}
+footer #base .t {
+    font-family: var(--dg-font);
+    color: var(--dg-primary-light);
+    letter-spacing: 0.14em;
+}
+footer #base,
+footer #base a,
+footer #base p,
+footer #base h3 {
+    font-family: var(--dg-font);
+}
+footer #base .links a {
+    color: rgba(255, 255, 255, 0.78);
+    transition: color 0.3s ease;
+}
+footer #base .links a:hover {
+    color: var(--dg-primary-light);
+}
+footer #base .txt h3 {
+    font-family: var(--dg-font-title);
+    font-weight: 700;
+    color: var(--dg-white);
+}
+
+/* ========== CELULAR ========== */
+@media (max-width: 640px) {
+    main.categorias .hero {
+        padding: 34px 0 50px;
+    }
+    #produto #produto-sku {
+        padding: 18px 16px;
+    }
+    #departamentos .produtos .item,
+    #prod-relacionados .produtos .item,
+    .vitrine_h .item {
+        padding: 10px 10px 16px;
+    }
+    #departamentos .produtos .item h3.produto,
+    #prod-relacionados .produtos .item h3.produto,
+    .vitrine_h .item h3.produto {
+        font-size: 0.86rem;
+    }
+    /* Dois produtos por linha, como na home */
+    #departamentos .produtos .row {
+        margin-left: -7px;
+        margin-right: -7px;
+    }
+    #departamentos .produtos .row > [class*="col"] {
+        flex: 0 0 50%;
+        max-width: 50%;
+        padding-left: 7px;
+        padding-right: 7px;
+        margin-bottom: 14px;
+    }
+}
+
+/* ========== IDENTIDADE VISUAL DAGA (guia oficial) ========== */
+.bt-comprar,
+.bt-finalizar,
+#carrinho .bt-continuar,
+#produto #produto-sku .bt-frete,
+#departamentos .filtros button {
+    font-family: var(--dg-font-label) !important;
+    letter-spacing: 0.14em !important;
+    text-transform: uppercase;
+}
+#produto .detalhes .nome_produto {
+    letter-spacing: 0.01em;
+}
+footer #base .t {
+    font-family: var(--dg-font-label);
+    color: var(--dg-ouro);
+}
+footer #base {
+    border-top-color: var(--dg-ouro);
+}
+</style>
