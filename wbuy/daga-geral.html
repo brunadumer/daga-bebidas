@@ -99,8 +99,18 @@ header .links .drop {
 header .links .drop a {
     font-family: var(--dg-font);
 }
+/* Letras escuras no menu suspenso (o tema pinta de branco); negrito só no hover */
+header .links .drop,
+header .links .drop li,
+header .links .drop a {
+    color: var(--dg-text) !important;
+}
+header .links .drop a {
+    font-weight: 400 !important;
+}
 header .links .drop a:hover {
-    color: var(--dg-primary);
+    color: var(--dg-text) !important;
+    font-weight: 700 !important;
 }
 /* Busca */
 header .search input,
@@ -224,6 +234,7 @@ main.categorias .hero::after {
     border-radius: 50% 50% 0 0 / 100% 100% 0 0;
 }
 main.categorias .hero .hero_title {
+    margin-bottom: 14px !important;
     font-family: var(--dg-font-title);
     font-weight: 700;
     font-size: clamp(2.2rem, 4.5vw, 3.4rem);
