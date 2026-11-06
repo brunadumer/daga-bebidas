@@ -1,0 +1,66 @@
+<!--
+    DAGA BEBIDAS - MENU INSTITUCIONAL (WBUY)
+    Onde fica no painel: Configuracoes > Scripts por pagina > "Daga - Menu institucional"
+    (Posicao: Fim do Body / Pagina: Todas as paginas).
+    Coloca o item "Institucional" no menu do topo (computador, topo fixo e celular).
+    Para mudar os links, edite a lista LINKS. Nao use travessao, emoji nem aspas curvas.
+-->
+<script>
+(function() {
+    'use strict';
+    // EDITAVEL: links do menu Institucional (texto, endereco)
+    var LINKS = [
+        ['Conheça a Daga', '/m/conheca-a-daga/'],
+        ['Daga Paraguay', '/m/daga-paraguay/'],
+        ['Sobre nós', '/sobre/']
+    ];
+
+    function itemComputador(principal) {
+        var li = document.createElement('li');
+        li.className = 'dg-inst';
+        var lista = LINKS.map(function(l) {
+            return '<ul class="list"><li class="t"><a href="' + l[1] + '" target="_self">' + l[0].toUpperCase() + '</a></li></ul>';
+        }).join('');
+        var titulo = principal
+            ? '<strong>Institucional</strong><span style="margin-left: 7px;" class="fa fa-angle-down"></span>'
+            : '<span>INSTITUCIONAL</span>';
+        li.innerHTML = '<a href="' + LINKS[0][1] + '" target="_self">' + titulo + '</a>' +
+            '<div class="drop"><div class="central"><div class="grid_new">' + lista + '</div></div></div>';
+        return li;
+    }
+
+    function itemCelular() {
+        var li = document.createElement('li');
+        li.className = 'dg-inst';
+        li.innerHTML = '<a href="#" class="hasSub">INSTITUCIONAL<i class="ri-arrow-down-s-line"></i></a>' +
+            '<ul class="sub" style="display: none;">' + LINKS.map(function(l) {
+                return '<li class="l2"><a href="' + l[1] + '">' + l[0] + '</a></li>';
+            }).join('') + '</ul>';
+        var botao = li.querySelector('a');
+        var sub = li.querySelector('.sub');
+        botao.addEventListener('click', function(e) {
+            e.preventDefault();
+            e.stopPropagation();
+            var abrir = !botao.classList.contains('open');
+            botao.classList.toggle('open', abrir);
+            sub.style.display = abrir ? 'block' : 'none';
+        });
+        return li;
+    }
+
+    function montar() {
+        var principal = document.querySelector('header .links nav > ul');
+        if (principal && !principal.querySelector('.dg-inst')) principal.appendChild(itemComputador(true));
+        var fixo = document.querySelector('.menu_scroll .links nav > ul');
+        if (fixo && !fixo.querySelector('.dg-inst')) fixo.appendChild(itemComputador(false));
+        var celular = document.querySelector('.menumobile .cats nav > ul');
+        if (celular && !celular.querySelector('.dg-inst')) celular.appendChild(itemCelular());
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', montar);
+    } else {
+        montar();
+    }
+})();
+</script>
