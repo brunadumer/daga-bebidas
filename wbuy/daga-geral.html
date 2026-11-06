@@ -594,4 +594,22 @@ footer #base .t {
 footer #base {
     border-top-color: var(--dg-ouro);
 }
+/* Páginas de conteúdo (ex.: Conheça a Daga, Paraguay): título e caminho */
+#informacoes .titulo {
+    font-family: var(--dg-font-title);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.01em;
+    color: var(--dg-text);
+}
+#informacoes .titulo::before,
+#informacoes .titulo::after {
+    content: none !important;
+}
+#informacoes .breadcrumb,
+#informacoes .breadcrumb a {
+    font-family: var(--dg-font);
+    background: transparent;
+    color: var(--dg-text-light);
+}
 </style>
