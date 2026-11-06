@@ -1055,7 +1055,19 @@
 
 /* Carrossel: espaço para a sombra dos cards e setas redondas */
 #daga-lp .dg-tema .owl-stage-outer {
-    padding: 6px 4px 18px;
+    padding: 6px 0 18px;
+}
+/* Cards do carrossel com a mesma altura */
+#daga-lp .dg-tema .owl-stage,
+#daga-lp .dg-tema .owl-item {
+    display: flex;
+}
+#daga-lp .dg-tema .owl-item > .prod {
+    display: flex;
+    width: 100%;
+}
+#daga-lp .dg-tema .owl-item .item {
+    width: 100%;
 }
 #daga-lp .dg-tema .owl-nav .owl-prev,
 #daga-lp .dg-tema .owl-nav .owl-next {
@@ -1457,8 +1469,27 @@
         window.addEventListener('resize', esticar);
 
         // Os carrosséis mudaram de lugar: recalcula o tamanho deles
+        // Espaco de 26px entre os cards dos carrosseis (igual a vitrine em grade)
+        function espacar() {
+            if (!window.jQuery) return;
+            window.jQuery(pagina).find('.dg-vitrine .owl-carousel').each(function() {
+                const $el = window.jQuery(this);
+                const owl = $el.data('owl.carousel');
+                if (!owl || this.dataset.dgEspaco) return;
+                this.dataset.dgEspaco = 'sim';
+                const opcoes = window.jQuery.extend(true, {}, owl.options);
+                opcoes.margin = 26;
+                Object.keys(opcoes.responsive || {}).forEach(k => {
+                    opcoes.responsive[k].margin = Number(k) >= 800 ? 26 : 14;
+                });
+                $el.trigger('destroy.owl.carousel').removeClass('owl-loaded owl-hidden');
+                $el.owlCarousel(opcoes);
+            });
+        }
+
         function recalcular() {
             if (window.jQuery) {
+                espacar();
                 window.jQuery(pagina).find('.owl-carousel').trigger('refresh.owl.carousel');
             }
         }

@@ -214,6 +214,28 @@ header input[type="search"] {
     background: transparent;
 }
 
+/* Cards: sem as estrelinhas de avaliação e com a mesma altura nos carrosséis */
+#departamentos .produtos .item .rate_box,
+#prod-relacionados .produtos .item .rate_box,
+.vitrine_h .item .rate_box {
+    display: none !important;
+}
+.vitrine_h .owl-stage,
+.vitrine_h .owl-item,
+#prod-relacionados .owl-stage,
+#prod-relacionados .owl-item {
+    display: flex;
+}
+.vitrine_h .owl-item > .prod,
+#prod-relacionados .owl-item > .prod {
+    display: flex;
+    width: 100%;
+}
+.vitrine_h .owl-item .item,
+#prod-relacionados .owl-item .item {
+    width: 100%;
+}
+
 /* ========== CATEGORIAS E BUSCA ========== */
 main.categorias .hero {
     position: relative;
